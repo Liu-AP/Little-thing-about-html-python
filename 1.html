@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+    
+    <meta charset="utf-8"> 
+
+</head>
+
+<body>
+    <div id = "res"></div>
+
+    <form>
+        <label for="num1">Number 1:</label>
+        <input type="number" id="num1" name="num1" required>
+        <br>
+        <label for="num2">Number 2:</label>
+        <input type="number" id="num2" name="num2" required>
+    </form>
+
+    <button onclick="fun()">Calculate</button>
+    <script>
+        function fun(){
+            var str = "fir="+String(document.getElementById("num1").value)+"&sec="+String(document.getElementById("num2").value)
+            var xhr = new XMLHttpRequest();
+            xhr.open('post','http://localhost:1234/',true);
+            xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xhr.send(str);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200){
+                        var result = xhr.responseText
+                        var resultJson = JSON.parse(result)
+                        document.getElementById("res").innerHTML = resultJson
+                    }
+                }
+            }
+        }
+    </script>
+
+
+</body>
